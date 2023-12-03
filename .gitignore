@@ -36,3 +36,7 @@ Thumbs.db
 *.exe
 *.out
 *.app
+
+
+# Text data file
+*.txt
