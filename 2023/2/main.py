@@ -1,5 +1,3 @@
-from itertools import accumulate
-import operator
 with open('data.txt', 'r') as f:
     data = [line.strip() for line in f.readlines()]
 
@@ -33,12 +31,21 @@ def get_legit_id(line, part_two):
             else:
                 if rules.get(color, float('inf')) < int(numb):
                     return 0
-    result = list(accumulate(bag.values(), operator.mul))[-1]
+    
+    result = list(accum_mul(bag.values()))[-1]
 
     return result if part_two else id
 
+def accum_mul(values):
+    it = iter(values)
+    initial = next(it)
+    total = initial
+    yield total
+    for element in it:
+        total *= element
+        yield total
 
-
+# print(list(accum_mul([2,3,4])))
 ## Part One
 print(sum_id(data, False))
 
