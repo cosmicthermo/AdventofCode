@@ -6,10 +6,10 @@ with open('data.txt', 'r') as f:
 
 
 
-def calibration(data):
+def calibration(data, part_two):
     result = []
     for line in data:
-        result.append(get_two_digit(line))
+        result.append(get_two_digit(line, part_two))
     return sum(result)
 
 def get_two_digit(line, second_part=True):
@@ -31,20 +31,16 @@ def get_two_digit(line, second_part=True):
 ## Part 2
 
 def get_digit_out(line):
-    lib1 = {'one':1, 'two':2, 'six':6}
-    lib2 = {'four':4, 'five':5, 'nine':9}
-    lib3 = {'three':3, 'seven':7, 'eight':8}
+    lib = {'one':1, 'two':2, 'six':6, 'four':4, 'five':5, 'nine':9, 'three':3, 'seven':7, 'eight':8}
     digit, length = [], len(line)
+    key_n = [3, 4, 5]
     for i in range(length):
         if line[i].isdigit():
             digit.append(int(line[i]))
             continue
-        if i + 3 <= length and (tmp:=line[i:i+3]) in lib1.keys():
-            digit.append(lib1.get(tmp))
-        if i + 4 <= length and (tmp:=line[i:i+4]) in lib2.keys():
-            digit.append(lib2.get(tmp))
-        if i + 5 <= length and (tmp:=line[i:i+5]) in lib3.keys():
-            digit.append(lib3.get(tmp))
+        for n in key_n:
+            if i + n <= length and (tmp:=line[i:i+n]) in lib.keys():
+                digit.append(lib.get(tmp))
     return digit
 
-print(calibration(data))
+print(calibration(data, part_two=True))
